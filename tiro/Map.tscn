@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Weapon_Pistol.gd" type="Script" id=1]
+[ext_resource path="res://Base.gd" type="Script" id=2]
+[ext_resource path="res://Wall.gd" type="Script" id=3]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.5
+
+[sub_resource type="SphereMesh" id=2]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.160784, 1, 0, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 1, 1.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 2, 3, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.854902, 0.411765, 0.117647, 1 )
+
+[sub_resource type="PlaneMesh" id=7]
+size = Vector2( 15, 15 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 7.5, 0.1, 7.5 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.152664, 0.651367, 0.163379, 1 )
+
+[sub_resource type="PrismMesh" id=10]
+material = SubResource( 9 )
+size = Vector3( 0.5, 0.5, 0.2 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Ball" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ball"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="Wall" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall"]
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, -0.1 )
+
+[node name="Floor" type="MeshInstance" parent="."]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Floor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
+shape = SubResource( 8 )
+
+[node name="Pistol" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 1 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Pistol_Point" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.25 )
+script = ExtResource( 1 )
