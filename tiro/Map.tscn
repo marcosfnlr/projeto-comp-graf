@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Weapon_Pistol.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Base.gd" type="Script" id=2]
 [ext_resource path="res://Wall.gd" type="Script" id=3]
 
@@ -29,13 +29,6 @@ size = Vector2( 15, 15 )
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 7.5, 0.1, 7.5 )
 
-[sub_resource type="SpatialMaterial" id=9]
-albedo_color = Color( 0.152664, 0.651367, 0.163379, 1 )
-
-[sub_resource type="PrismMesh" id=10]
-material = SubResource( 9 )
-size = Vector3( 0.5, 0.5, 0.2 )
-
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -60,8 +53,7 @@ shape = SubResource( 4 )
 mesh = SubResource( 5 )
 material/0 = SubResource( 6 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, -0.1 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
 
 [node name="Floor" type="MeshInstance" parent="."]
 mesh = SubResource( 7 )
@@ -71,12 +63,3 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
 shape = SubResource( 8 )
-
-[node name="Pistol" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 1 )
-mesh = SubResource( 10 )
-material/0 = null
-
-[node name="Pistol_Point" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.25 )
-script = ExtResource( 1 )
