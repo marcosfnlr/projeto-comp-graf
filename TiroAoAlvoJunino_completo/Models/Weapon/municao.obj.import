@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/municao.obj-d0deb458b34ba72431153f137d3c274e.mesh"
+
+[deps]
+
+files=[ "res://.import/municao.obj-d0deb458b34ba72431153f137d3c274e.mesh" ]
+
+source_file="res://Models/Weapon/municao.obj"
+dest_files=[ "res://.import/municao.obj-d0deb458b34ba72431153f137d3c274e.mesh", "res://.import/municao.obj-d0deb458b34ba72431153f137d3c274e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
