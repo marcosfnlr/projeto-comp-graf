@@ -1,14 +1,12 @@
 extends KinematicBody
-# stats
-var curHp : int = 10
+
 onready var muzzle = get_node("Camera/GunModel/Muzzle")
 onready var bulletScene = preload("res://Bullet.tscn")
 onready var ui : Node = get_node("/root/MainScene/CanvasLayer/UI")
 
-var maxHp : int = 10
-var ammo : int = 10000
 var score : int = 0
 var timer = 0
+
 # physics
 var moveSpeed : float = 5.0
 var jumpForce : float = 5.0
@@ -34,14 +32,11 @@ func _input (event):
 		mouseDelta = event.relative
 
 func shoot ():
- 
 	var bullet = bulletScene.instance()
 	get_node("/root/MainScene").add_child(bullet)
  
 	bullet.global_transform = muzzle.global_transform
-	bullet.scale = Vector3.ONE
- 
-	ammo -= 1
+	bullet.scale = Vector3(3,3,3)
 
 # called every frame
 func _process (delta):
@@ -63,6 +58,12 @@ func _process (delta):
 		if timer <= 0:
 			shoot()
 			timer = 1
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 # called every physics step
 func _physics_process (Delta):
@@ -99,43 +100,14 @@ func _physics_process (Delta):
 	# jump if we press the jump button and are standing on the floor
 	if Input.is_action_pressed("jump") and is_on_floor():
 		vel.y = jumpForce
-
-# called when an enemy damages us
-func take_damage (damage):
- 
-	curHp -= damage
- 
-	if curHp <= 0:
-		die()
- 
-# called when our health reaches 0
-func die ():
- 
-	pass
  
 # called when we kill an enemy
 func add_score (amount):
- 
 	score += amount
 	ui.update_score_text(score)
 	return score
- 
-# adds an amount of health to the player
-func add_health (amount):
- 
-	curHp = clamp(curHp + amount, 0, maxHp)
- 
-# adds an amount of ammo to the player
-func add_ammo (amount):
- 
-	ammo += amount
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	ui.update_score_text(score)
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
